@@ -1,0 +1,28 @@
+import tensorflow as t
+
+
+with t.name_scope("5_minus_3_plus_2_squared"):
+    
+    a = t.constant(5)
+    b = t.constant(3)
+    c = t.constant(2)
+    d = t.square(a, name="a_2")
+    e = t.square(b, name="b_2")
+    f = t.square(c, name="c_2")
+    g = t.multiply(a,b, name="ab")
+    h = t.multiply(g,2, name="2ab")
+    i = t.multiply(b,c, name="bc")
+    j = t.multiply(i,2, name="2bc")
+    k = t.multiply(c,a, name="ca")
+    l = t.multiply(k,2, name="2ca")
+    
+    m = t.add(d,e, name="a_2_plus_b_2")
+    n = t.add(m,f, name="a_2_plus_b_2_plus_c_2")
+    o = t.substract(n,h, name="a_2_plus_b_2_plus_c_2_minus_2ab")
+    p = t.substract(o,j, name="a_2_plus_b_2_plus_c_2_minus_2ab_minus_2bc")
+    q = t.add(p,l, name="a_2_plus_b_2_plus_c_2_minus_2ab_minus_2bc_plus_2ca")
+    
+with t.Session() as sess:
+    writer = t.summary.FileWriter("/tmp/tboard/output9_c1", sess.graph)
+    print(sess.run(q))
+    writer.close()
